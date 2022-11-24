@@ -24,7 +24,19 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Player> Players { get; set; }
+
+        public DbSet<PlayerComment> PlayerComments { get; set; }
+
+        public DbSet<Position> Positions { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<PostComment> PostComments { get; set; }
+
+        public DbSet<Rank> Ranks { get; set; }
+
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 
