@@ -61,9 +61,7 @@
             }
 
             return this.View(model);
-
         }
-
 
         [HttpGet]
         public IActionResult Login()

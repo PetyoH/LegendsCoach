@@ -4,27 +4,49 @@
 }
 
 
-<h1 class="text-center">@ViewData["Title"]</h1>
 <div class="row">
-    <div class="col-md-4 offset-md-4">
-        <section>
-            <form id="account" method="post">
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="text-center mb-3">
-                    <label asp-for="@Model.UserName" class="form-label"></label>
-                    <input asp-for="@Model.UserName" class="form-control" autocomplete="username" aria-required="true" />
-                    <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+    <section>
+        <form id="account" method="post">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+
+                                <div class="mb-md-5 mt-md-4 pb-5">
+
+                                    <h2 class="fw-bold mb-2 text-uppercase">@ViewData["Title"]</h2>
+                                    <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.UserName" class="form-label" for="typeUserNameX"></label>
+                                        <input asp-for="@Model.UserName" type="username" id="typeUserNameX" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label asp-for="@Model.Password" type="password" class="form-label" for="typePasswordX"></label>
+                                        <input asp-for="@Model.Password" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                    </div>
+
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                </div>
+
+                                <div>
+                                    <p class="mb-0">
+                                        Don't have an account? <a asp-controller="ApplicationUser" asp-action="Register" class="text-white-50 fw-bold">Sign Up</a>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center mb-3">
-                    <label asp-for="@Model.Password" class="form-label"></label>
-                    <input asp-for="@Model.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                </div>
-                <div class="text-center">
-                    <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
-                </div>
-            </form>
-        </section>
-    </div>
+            </div>
+        </form>
+    </section>
 </div>
