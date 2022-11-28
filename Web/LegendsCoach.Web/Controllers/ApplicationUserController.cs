@@ -3,33 +3,48 @@
     using System.Threading.Tasks;
 
     using LegendsCoach.Data.Models;
+    using LegendsCoach.Services.Data;
+    using LegendsCoach.Services.Data.Contracts;
     using LegendsCoach.Web.ViewModels.ApplicationUser;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     public class ApplicationUserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IPositionService positionService;
+        private readonly IRankService rankService;
+        private readonly IPlayerService playerService;
 
         public ApplicationUserController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IPositionService positionService,
+            IRankService rankService,
+            IPlayerService playerService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.positionService = positionService;
+            this.rankService = rankService;
+            this.playerService = playerService;
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             if (this.User?.Identity?.IsAuthenticated ?? false)
             {
                 this.RedirectToAction("Index", "Home");
             }
 
-            var model = new RegisterViewModel();
+            var model = new RegisterViewModel
+            {
+                Ranks = await this.rankService.GetRanksAsync(),
+                Positions = await this.positionService.GetPositionsAsync(),
+            };
 
             return this.View(model);
         }
@@ -39,6 +54,9 @@
         {
             if (!this.ModelState.IsValid)
             {
+                model.Ranks = await this.rankService.GetRanksAsync();
+                model.Positions = await this.positionService.GetPositionsAsync();
+
                 return this.View(model);
             }
 
@@ -52,6 +70,20 @@
 
             if (result.Succeeded)
             {
+                var curUser = await this.userManager.FindByNameAsync(model.UserName);
+
+                var player = new Player
+                {
+                    UserId = curUser.Id,
+                    GameName = model.GameName,
+                    Description = model.Description,
+                    Level = model.Level,
+                    RankId = this.rankService.GetRankIdAsync(model.Rank).Id,
+                    PositionId = this.positionService.GetPositionIdAsync(model.Position).Id,
+                };
+
+                await this.playerService.AddPlayerAsync(player);
+
                 return this.RedirectToAction("Login", "ApplicationUser");
             }
 

@@ -21,32 +21,76 @@
 
                                     <div class="form-outline form-white mb-4">
 
-                                        <label asp-for="@Model.UserName" class="form-label" for="typeUserNameX"></label>
-                                        <input asp-for="@Model.UserName" type="username" id="typeUserNameX" class="form-control form-control-lg" />
+                                        <label asp-for="@Model.UserName" class="form-label"></label>
+                                        <input asp-for="@Model.UserName" type="username" class="form-control form-control-lg" />
                                         <span asp-validation-for="@Model.UserName" class="text-danger"></span>
 
                                     </div>
 
                                     <div class="form-outline form-white mb-4">
 
-                                        <label asp-for="@Model.Email" class="form-label" for="typeEmailX"></label>
-                                        <input asp-for="@Model.Email" type="email" id="typeEmailX" class="form-control form-control-lg" />
+                                        <label asp-for="@Model.Email" class="form-label"></label>
+                                        <input asp-for="@Model.Email" type="email" class="form-control form-control-lg" />
                                         <span asp-validation-for="@Model.Email" class="text-danger"></span>
 
                                     </div>
 
                                     <div class="form-outline form-white mb-4">
-                                        <label asp-for="@Model.Password" type="password" class="form-label" for="typePasswordX"></label>
-                                        <input asp-for="@Model.Password" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                        <label asp-for="@Model.Password" type="password" class="form-label"></label>
+                                        <input asp-for="@Model.Password" type="password" class="form-control form-control-lg" />
                                         <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-outline form-white mb-4">
 
-                                        <label asp-for="@Model.ConfirmPassword" class="form-label" for="typeConfirmPasswordX"></label>
-                                        <input asp-for="@Model.ConfirmPassword" type="password" id="typeConfirmPasswordX" class="form-control form-control-lg" />
+                                        <label asp-for="@Model.ConfirmPassword" class="form-label"></label>
+                                        <input asp-for="@Model.ConfirmPassword" type="password" class="form-control form-control-lg" />
                                         <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
 
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.GameName" class="form-label"></label>
+                                        <input asp-for="@Model.GameName" type="username" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.GameName" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Level" class="form-label"></label>
+                                        <input asp-for="@Model.Level" type="number" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.Level" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Description" class="form-label"></label>
+                                        <textarea asp-for="@Model.Description" class="form-control form-control-lg" rows="3"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label asp-for="@Model.Position" class="form-label">Position</label>
+                                        <select asp-for="@Model.Position" class="form-select" aria-label="Default select example">
+                                            @foreach (var item in Model.Positions)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label asp-for="@Model.Rank" class="form-label">Rank</label>
+                                        <select asp-for="@Model.Rank" class="form-select" aria-label="Default select example">
+                                            @foreach (var item in Model.Ranks)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        </select>
                                     </div>
 
                                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>

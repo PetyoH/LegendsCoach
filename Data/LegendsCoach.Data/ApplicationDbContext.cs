@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Reflection.Emit;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -25,6 +26,8 @@
         }
 
         public DbSet<Player> Players { get; set; }
+
+        public DbSet<Coach> Coaches { get; set; }
 
         public DbSet<PlayerComment> PlayerComments { get; set; }
 
@@ -59,6 +62,11 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Player>()
+            .HasOne(a => a.Coach)
+            .WithOne(b => b.Player)
+            .HasForeignKey<Coach>(b => b.PlayerId);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

@@ -8,6 +8,8 @@
     using LegendsCoach.Data.Models;
     using LegendsCoach.Data.Repositories;
     using LegendsCoach.Data.Seeding;
+    using LegendsCoach.Services.Data;
+    using LegendsCoach.Services.Data.Contracts;
     using LegendsCoach.Services.Mapping;
     using LegendsCoach.Services.Messaging;
     using LegendsCoach.Web.ViewModels;
@@ -63,6 +65,9 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IPositionService, PositionService>();
+            services.AddTransient<IRankService, RankService>();
+            services.AddTransient<IPlayerService, PlayerService>();
         }
 
         private static void Configure(WebApplication app)

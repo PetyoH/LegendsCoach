@@ -1,0 +1,85 @@
+﻿@model IEnumerable<PlayerAllViewModel>
+@{
+    this.ViewData["Title"] = "Players";
+}
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <div class="card-body h-25">
+                    <h5 class="card-title text-center pb-5">@item.GameName</h5>
+                    <ul class="list-group mb-5">
+                        <li class="list-group-item">Level: @item.Level</li>
+                        <li class="list-group-item">Rank: @item.Rank</li>
+                        <li class="list-group-item">Position: @item.Position</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center row px-0 mx-0">
+                    <div class="col gap-2">
+                        <button type="button" class="btn btn-warning">Warning</button>
+                        <button type="button" class="btn btn-light">Light</button>
+                        <button type="button" class="btn btn-info">Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col">
+        <div class="card">
+            <div class="card-body h-25">
+                <h5 class="card-title text-center pb-5">GameName</h5>
+                <ul class="list-group mb-5">
+                    <li class="list-group-item">Level: </li>
+                    <li class="list-group-item">Rank:</li>
+                    <li class="list-group-item">Position: </li>
+                </ul>
+            </div>
+            <div class="card-footer text-center row px-0 mx-0">
+                <div class="col gap-2">
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-light">Light</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body h-25">
+                <h5 class="card-title text-center pb-5">GameName</h5>
+                <ul class="list-group mb-5">
+                    <li class="list-group-item">Level: </li>
+                    <li class="list-group-item">Rank:</li>
+                    <li class="list-group-item">Position: </li>
+                </ul>
+            </div>
+            <div class="card-footer text-center row px-0 mx-0">
+                <div class="col gap-2">
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-light">Light</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body h-25">
+                <h5 class="card-title text-center pb-5">GameName</h5>
+                <ul class="list-group mb-5">
+                    <li class="list-group-item">Level: </li>
+                    <li class="list-group-item">Rank:</li>
+                    <li class="list-group-item">Position: </li>
+                </ul>
+            </div>
+            <div class="card-footer text-center row px-0 mx-0">
+                <div class="col gap-2">
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-light">Light</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

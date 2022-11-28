@@ -3,18 +3,24 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using System.Reflection.Metadata.Ecma335;
     using System.Text;
     using System.Threading.Tasks;
 
     using LegendsCoach.Data.Common.Models;
 
-    public class Position : BaseDeletableModel<int>
+    public class Coach : BaseDeletableModel<string>
     {
-        [Required]
-        public string Name { get; set; }
+        public Coach()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
 
-        public ICollection<Player> Players { get; set; } = new HashSet<Player>();
+        [Required]
+        public string PlayerId { get; set; }
+
+        public Player Player { get; set; }
+
     }
 }

@@ -17,11 +17,11 @@
                 return;
             }
 
-            await dbContext.AddAsync(new Position { Name = "Top", Description = "Hello, I play top!" });
-            await dbContext.AddAsync(new Position { Name = "Jungle", Description = "Hello, I play jungle!" });
-            await dbContext.AddAsync(new Position { Name = "Mid", Description = "Hello, I play mid!" });
-            await dbContext.AddAsync(new Position { Name = "Bot", Description = "Hello, I play bot!" });
-            await dbContext.AddAsync(new Position { Name = "Support", Description = "Hello, I play support!" });
+            await dbContext.AddAsync(new Position { Name = "Top" });
+            await dbContext.AddAsync(new Position { Name = "Jungle" });
+            await dbContext.AddAsync(new Position { Name = "Mid" });
+            await dbContext.AddAsync(new Position { Name = "Bot" });
+            await dbContext.AddAsync(new Position { Name = "Support" });
 
             await dbContext.SaveChangesAsync();
         }

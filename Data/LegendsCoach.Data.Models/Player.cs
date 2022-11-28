@@ -18,11 +18,16 @@
         }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(40)]
         public string GameName { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
         public int Level { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Description { get; set; }
 
         [Required]
         public int RankId { get; set; }
@@ -38,6 +43,10 @@
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public string CoachId { get; set; }
+
+        public Coach Coach { get; set; }
 
         public ICollection<PostComment> PostComments { get; set; } = new HashSet<PostComment>();
 
