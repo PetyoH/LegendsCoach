@@ -1,5 +1,7 @@
 ﻿namespace LegendsCoach.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Data.Contracts;
     using LegendsCoach.Web.ViewModels.Player;
@@ -15,9 +17,9 @@
         }
 
         [HttpGet]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var model = this.playerService.GetAllAsync();
+            var model = await this.playerService.GetAllAsync();
 
             return this.View(model);
         }
