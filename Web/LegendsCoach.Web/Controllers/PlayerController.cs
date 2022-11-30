@@ -5,8 +5,10 @@
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Data.Contracts;
     using LegendsCoach.Web.ViewModels.Player;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class PlayerController : Controller
     {
         private readonly IPlayerService playerService;
@@ -17,9 +19,18 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        [AllowAnonymous]
+        public async Task<IActionResult> All(int id = 1)
         {
-            var model = await this.playerService.GetAllAsync();
+            const int ItemsPerPage = 9;
+
+            var model = new PlayersListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                PlayersCount = await this.playerService.GetCountAsync(),
+                Players = await this.playerService.GetAllAsync<PlayerInListViewModel>(id, ItemsPerPage),
+            };
 
             return this.View(model);
         }

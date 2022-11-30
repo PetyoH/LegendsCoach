@@ -9,13 +9,6 @@
 
     public class HomeController : BaseController
     {
-        //private readonly IDeletableEntityRepository<Player> players;
-
-        //public HomeController(IDeletableEntityRepository<Player> players)
-        //{
-        //    this.players = players;
-        //}
-
         public IActionResult Index()
         {
             return this.View();

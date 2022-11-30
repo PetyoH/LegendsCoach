@@ -6,16 +6,21 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class PlayerAllViewModel
+    using LegendsCoach.Data.Models;
+    using LegendsCoach.Services.Mapping;
+
+    public class PlayerInListViewModel : IMapFrom<Player>
     {
+        public string Id { get; set; }
+
         public string GameName { get; set; }
 
         public int Level { get; set; }
 
         public string Description { get; set; }
 
-        public string Rank { get; set; }
+        public string RankName { get; set; }
 
-        public string Position { get; set; }
+        public string PositionName { get; set; }
     }
 }

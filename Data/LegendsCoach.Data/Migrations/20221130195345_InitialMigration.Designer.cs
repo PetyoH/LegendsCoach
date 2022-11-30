@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegendsCoach.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221127114735_InitialMigration")]
+    [Migration("20221130195345_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -11,7 +11,7 @@
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
         </li>
          <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
+            <a class="nav-link" asp-action="Edit" asp-controller="Player" title="Manage">Edit profile</a>
         </li>
 
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))

@@ -9,6 +9,7 @@
     using LegendsCoach.Data.Common.Repositories;
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Data.Contracts;
+    using LegendsCoach.Services.Mapping;
     using LegendsCoach.Web.ViewModels.Player;
     using Microsoft.EntityFrameworkCore;
 
@@ -27,22 +28,21 @@
             await this.playerRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PlayerAllViewModel>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage)
         {
-            var entities = await this.playerRepository.All()
-                .Include(p => p.Position)
-                .Include(p => p.Rank)
+            var players = await this.playerRepository.AllAsNoTracking()
+                .OrderByDescending(e => e.CreatedOn)
+                .Skip((page - 1) * playersPerPage)
+                .Take(playersPerPage)
+                .To<T>()
                 .ToListAsync();
 
-            return entities.Select(e => new PlayerAllViewModel
-            {
-                GameName = e.GameName,
-                Description = e.Description,
-                Level = e.Level,
-                Position = e.Position.Name,
-                Rank = e.Rank.Name,
-            });
+            return players;
+        }
 
+        public async Task<int> GetCountAsync()
+        {
+            return await this.playerRepository.All().CountAsync();
         }
     }
 }

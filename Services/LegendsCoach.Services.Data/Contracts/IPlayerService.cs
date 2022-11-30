@@ -13,6 +13,8 @@
     {
         Task AddPlayerAsync(Player player);
 
-        Task<IEnumerable<PlayerAllViewModel>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage = 12);
+
+        Task<int> GetCountAsync();
     }
 }
