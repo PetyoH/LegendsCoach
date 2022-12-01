@@ -72,17 +72,18 @@
             {
                 var curUser = await this.userManager.FindByNameAsync(model.UserName);
 
-                var player = new Player
-                {
-                    UserId = curUser.Id,
-                    GameName = model.GameName,
-                    Description = model.Description,
-                    Level = model.Level,
-                    RankId = this.rankService.GetRankIdAsync(model.Rank).Id,
-                    PositionId = this.positionService.GetPositionIdAsync(model.Position).Id,
-                };
 
-                await this.playerService.AddPlayerAsync(player);
+                //var player = new Player
+                //{
+                //    UserId = curUser.Id,
+                //    GameName = model.GameName,
+                //    Description = model.Description,
+                //    Level = model.Level,
+                //    RankId = this.rankService.GetRankAsync(model.Rank).Id,
+                //    PositionId = this.positionService.GetPositionAsync(model.Position).Id,
+                //};
+
+                await this.playerService.AddPlayerAsync(model, curUser.Id);
 
                 return this.RedirectToAction("Login", "ApplicationUser");
             }

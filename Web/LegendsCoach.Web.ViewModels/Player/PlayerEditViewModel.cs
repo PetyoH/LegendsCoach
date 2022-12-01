@@ -1,4 +1,4 @@
-﻿namespace LegendsCoach.Web.ViewModels.ApplicationUser
+﻿namespace LegendsCoach.Web.ViewModels.Player
 {
     using System;
     using System.Collections.Generic;
@@ -6,29 +6,13 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using AutoMapper;
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Mapping;
 
-    public class RegisterViewModel : IMapFrom<Player>
+    public class PlayerEditViewModel : IMapFrom<Player>
     {
-        [Required]
-        [StringLength(20)]
-        public string UserName { get; set; }
-
-        [Required]
-        [StringLength(60)]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required]
-        [Compare(nameof(Password))]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [StringLength(40, MinimumLength = 1)]
@@ -43,13 +27,18 @@
         public string Description { get; set; }
 
         [Required]
-        public int PositionId { get; set; }
+        public string PositionName { get; set; }
 
         [Required]
-        public int RankId { get; set; }
+        public string RankName { get; set; }
 
         public List<Rank> Ranks { get; set; } = new List<Rank>();
 
         public List<Position> Positions { get; set; } = new List<Position>();
+
+        //public void CreateMappings(IProfileExpression configuration)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

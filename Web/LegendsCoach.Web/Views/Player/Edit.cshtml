@@ -1,0 +1,79 @@
+﻿@model PlayerEditViewModel
+@{
+    ViewData["Title"] = "Edit profile";
+}
+
+<div class="row">
+
+    <section>
+        <form id="account" method="post">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+
+                                <div class="mb-md-5 mt-md-4 pb-5">
+
+                                    <h2 class="fw-bold mb-2 text-uppercase">@ViewData["Title"]</h2>
+                                    
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.GameName" class="form-label"></label>
+                                        <input asp-for="@Model.GameName" type="username" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.GameName" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Level" class="form-label"></label>
+                                        <input asp-for="@Model.Level" type="number" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.Level" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Description" class="form-label"></label>
+                                        <textarea asp-for="@Model.Description" class="form-control form-control-lg" rows="3"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label asp-for="@Model.PositionName" class="form-label">Position</label>
+                                        <select asp-for="@Model.PositionName" class="form-select" aria-label="Default select example">
+                                            @foreach (var item in Model.Positions)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+                                        <label asp-for="@Model.RankName" class="form-label">Rank</label>
+                                        <select asp-for="@Model.RankName" class="form-select" aria-label="Default select example">
+                                            @foreach (var item in Model.Ranks)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Edit</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+
+

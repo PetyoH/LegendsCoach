@@ -74,8 +74,8 @@
                                     </div>
 
                                     <div class="form-outline form-white mb-4">
-                                        <label asp-for="@Model.Position" class="form-label">Position</label>
-                                        <select asp-for="@Model.Position" class="form-select" aria-label="Default select example">
+                                        <label asp-for="@Model.PositionId" class="form-label">Position</label>
+                                        <select asp-for="@Model.PositionId" class="form-select" aria-label="Default select example">
                                             @foreach (var item in Model.Positions)
                                             {
                                                 <option value="@item.Id">@item.Name</option>
@@ -84,8 +84,8 @@
                                     </div>
 
                                     <div class="form-outline form-white mb-4">
-                                        <label asp-for="@Model.Rank" class="form-label">Rank</label>
-                                        <select asp-for="@Model.Rank" class="form-select" aria-label="Default select example">
+                                        <label asp-for="@Model.RankId" class="form-label">Rank</label>
+                                        <select asp-for="@Model.RankId" class="form-select" aria-label="Default select example">
                                             @foreach (var item in Model.Ranks)
                                             {
                                                 <option value="@item.Id">@item.Name</option>

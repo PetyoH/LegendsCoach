@@ -21,11 +21,11 @@
             this.positionRepository = positionRepository;
         }
 
-        public async Task<Position> GetPositionIdAsync(string position)
+        public async Task<Position> GetPositionAsync(string positionName)
         {
             return await this.positionRepository
                 .AllAsNoTracking()
-                .FirstAsync(p => p.Name == position);
+                .FirstAsync(p => p.Name == positionName);
         }
 
         public async Task<List<Position>> GetPositionsAsync()

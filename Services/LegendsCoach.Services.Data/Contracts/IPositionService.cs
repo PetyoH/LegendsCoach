@@ -12,6 +12,6 @@
     {
         Task<List<Position>> GetPositionsAsync();
 
-        Task<Position> GetPositionIdAsync(string position);
+        Task<Position> GetPositionAsync(string positionName);
     }
 }

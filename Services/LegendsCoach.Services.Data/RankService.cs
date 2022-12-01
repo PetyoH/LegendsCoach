@@ -20,11 +20,11 @@
             this.rankRepository = rankRepository;
         }
 
-        public async Task<Rank> GetRankIdAsync(string rank)
+        public async Task<Rank> GetRankAsync(string rankName)
         {
             return await this.rankRepository
                 .AllAsNoTracking()
-                .FirstAsync(r => r.Name == rank);
+                .FirstAsync(r => r.Name == rankName);
         }
 
         public Task<List<Rank>> GetRanksAsync()

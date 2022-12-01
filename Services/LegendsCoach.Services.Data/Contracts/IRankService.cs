@@ -12,6 +12,6 @@
     {
         Task<List<Rank>> GetRanksAsync();
 
-        Task<Rank> GetRankIdAsync(string rank);
+        Task<Rank> GetRankAsync(string rankName);
     }
 }

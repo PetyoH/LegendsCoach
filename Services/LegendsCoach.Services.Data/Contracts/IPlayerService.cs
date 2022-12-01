@@ -7,14 +7,19 @@
     using System.Threading.Tasks;
 
     using LegendsCoach.Data.Models;
+    using LegendsCoach.Web.ViewModels.ApplicationUser;
     using LegendsCoach.Web.ViewModels.Player;
 
     public interface IPlayerService
     {
-        Task AddPlayerAsync(Player player);
+        Task AddPlayerAsync(RegisterViewModel model, string userId);
 
-        Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage = 12);
+        Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage = 9);
 
         Task<int> GetCountAsync();
+
+        Task<T> GetPlayerAsync<T>(string userId);
+
+        //Task UpdatePlayerAsync(PlayerEditViewModel player);
     }
 }
