@@ -20,7 +20,7 @@
                     <div class="col gap-2">
                         <button type="button" class="btn btn-warning">Warning</button>
                         <button type="button" class="btn btn-light">Light</button>
-                        <button type="button" class="btn btn-info" asp-action="PlayerInfo" asp-route-id="@item.Id">More Info</button>
+                        <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@item.Id">More Info</a></button>
                     </div>
                 </div>
             </div>

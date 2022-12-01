@@ -20,6 +20,8 @@
 
         Task<T> GetPlayerAsync<T>(string userId);
 
-        //Task UpdatePlayerAsync(PlayerEditViewModel player);
+        Task<T> GetPlayerDetailsAsync<T>(string playerId);
+
+        Task UpdatePlayerAsync(PlayerEditViewModel player);
     }
 }

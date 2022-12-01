@@ -9,13 +9,13 @@
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Mapping;
 
-    public class PlayerInListViewModel : IMapFrom<Player>
+    public class PlayerDetailsViewModel : IMapFrom<Player>
     {
-        public string Id { get; set; }
-
         public string GameName { get; set; }
 
         public int Level { get; set; }
+
+        public string Description { get; set; }
 
         public string RankName { get; set; }
 

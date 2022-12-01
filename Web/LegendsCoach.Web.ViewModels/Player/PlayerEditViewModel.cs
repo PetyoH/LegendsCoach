@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using AutoMapper;
+
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Mapping;
 
@@ -27,18 +27,13 @@
         public string Description { get; set; }
 
         [Required]
-        public string PositionName { get; set; }
+        public int PositionId { get; set; }
 
         [Required]
-        public string RankName { get; set; }
+        public int RankId { get; set; }
 
         public List<Rank> Ranks { get; set; } = new List<Rank>();
 
         public List<Position> Positions { get; set; } = new List<Position>();
-
-        //public void CreateMappings(IProfileExpression configuration)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

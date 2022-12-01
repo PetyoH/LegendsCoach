@@ -1,10 +1,8 @@
 ﻿namespace LegendsCoach.Web.Controllers
 {
     using System.Diagnostics;
-    using LegendsCoach.Data.Common.Repositories;
-    using LegendsCoach.Data.Models;
-    using LegendsCoach.Web.ViewModels;
 
+    using LegendsCoach.Web.ViewModels;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

@@ -66,8 +66,15 @@
                 return this.View(model);
             }
 
-            //await this.playerService.UpdatePlayerAsync(model);
+            await this.playerService.UpdatePlayerAsync(model);
 
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            var model = await this.playerService.GetPlayerDetailsAsync<PlayerDetailsViewModel>(id);
             return this.View(model);
         }
     }

@@ -19,7 +19,6 @@
     {
         private readonly IDeletableEntityRepository<Player> playerRepository;
 
-
         public PlayerService(
              IDeletableEntityRepository<Player> playerRepository)
         {
@@ -68,20 +67,29 @@
                 .FirstOrDefaultAsync();
         }
 
-        //public async Task UpdatePlayerAsync(PlayerEditViewModel model)
-        //{
-        //    var player = new Player
-        //    {
-        //        Id = model.Id,
-        //        GameName = model.GameName,
-        //        Description = model.Description,
-        //        Level = model.Level,
-        //        PositionId = await this.positionService.GetPositionIdAsync(model.PositionName),
-        //        RankId = await this.rankService.GetRankIdAsync(model.RankName),
-        //    };
+        public async Task<T> GetPlayerDetailsAsync<T>(string playerId)
+        {
+            return await this.playerRepository
+                .AllAsNoTracking()
+                .Where(p => p.Id == playerId)
+                .To<T>()
+                .FirstOrDefaultAsync();
+        }
 
-        //    this.playerRepository.Update(player);
-        //    await this.playerRepository.SaveChangesAsync();
-        //}
+        public async Task UpdatePlayerAsync(PlayerEditViewModel model)
+        {
+            var player = new Player
+            {
+                Id = model.Id,
+                GameName = model.GameName,
+                Description = model.Description,
+                Level = model.Level,
+                PositionId = model.PositionId,
+                RankId = model.RankId,
+            };
+
+            this.playerRepository.Update(player);
+            await this.playerRepository.SaveChangesAsync();
+        }
     }
 }
