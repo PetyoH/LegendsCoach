@@ -18,6 +18,8 @@
 
         Task<int> GetCountAsync();
 
+        Task<string> GetPlayerIdAsync(string userId);
+
         Task<T> GetPlayerAsync<T>(string userId);
 
         Task<T> GetPlayerDetailsAsync<T>(string playerId);

@@ -58,6 +58,16 @@
             return await this.playerRepository.All().CountAsync();
         }
 
+        public async Task<string> GetPlayerIdAsync(string userId)
+        {
+            var player = await this.playerRepository
+                .AllAsNoTracking()
+                .Where(p => p.UserId == userId)
+                .FirstOrDefaultAsync();
+
+            return player?.Id;
+        }
+
         public async Task<T> GetPlayerAsync<T>(string userId)
         {
             return await this.playerRepository

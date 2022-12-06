@@ -2,7 +2,7 @@
 @{
     this.ViewData["Title"] = "Players";
 }
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+<div class="row row-cols-1 row-cols-md-3 g-4">
      
     @foreach (var item in Model.Players)
     {
@@ -17,11 +17,14 @@
                     </ul>
                 </div>
                 <div class="card-footer text-center row px-0 mx-0">
-                    <div class="col gap-2">
-                        <button type="button" class="btn btn-warning">Warning</button>
-                        <button type="button" class="btn btn-light">Light</button>
-                        <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@item.Id">More Info</a></button>
-                    </div>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <div class="col gap-2">
+                            <button type="button" class="btn btn-warning">Warning</button>
+                            <button type="button" class="btn btn-light">Light</button>
+                            <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@item.Id">More Info</a></button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

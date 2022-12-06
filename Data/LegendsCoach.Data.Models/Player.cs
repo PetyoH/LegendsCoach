@@ -22,7 +22,7 @@
         public string GameName { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue)]
+        [Range(1, 1000000)]
         public int Level { get; set; }
 
         [Required]
@@ -47,6 +47,8 @@
         public string CoachId { get; set; }
 
         public Coach Coach { get; set; }
+
+        public ICollection<Champion> Champions { get; set; } = new HashSet<Champion>();
 
         public ICollection<PostComment> PostComments { get; set; } = new HashSet<PostComment>();
 

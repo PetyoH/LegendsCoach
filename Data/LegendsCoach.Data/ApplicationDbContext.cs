@@ -33,13 +33,13 @@
 
         public DbSet<Position> Positions { get; set; }
 
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Champion> Champions { get; set; }
 
         public DbSet<PostComment> PostComments { get; set; }
 
         public DbSet<Rank> Ranks { get; set; }
 
-
+        public DbSet<Image> Images { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -66,6 +66,11 @@
             .HasOne(a => a.Coach)
             .WithOne(b => b.Player)
             .HasForeignKey<Coach>(b => b.PlayerId);
+
+            //builder.Entity<Champion>()
+            //.HasOne(x => x.Image)
+            //.WithOne(x => x.Champion)
+            //.HasForeignKey<Image>(x => x.ChampionId);
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

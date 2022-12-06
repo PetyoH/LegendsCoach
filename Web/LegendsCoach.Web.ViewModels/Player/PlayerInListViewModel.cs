@@ -20,5 +20,7 @@
         public string RankName { get; set; }
 
         public string PositionName { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

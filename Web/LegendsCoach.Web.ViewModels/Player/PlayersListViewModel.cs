@@ -12,6 +12,6 @@
 
     public class PlayersListViewModel : PagingViewModel
     {
-        public IEnumerable<PlayerInListViewModel> Players { get; set; }
+        public IEnumerable<PlayerInListViewModel> Players { get; set; } = new List<PlayerInListViewModel>();
     }
 }

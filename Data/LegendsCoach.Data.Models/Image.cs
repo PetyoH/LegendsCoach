@@ -1,6 +1,7 @@
 ﻿namespace LegendsCoach.Data.Models
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -10,16 +11,24 @@
 
     using LegendsCoach.Data.Common.Models;
 
-    public class Coach : BaseDeletableModel<string>
+    public class Image : BaseDeletableModel<string>
     {
-        public Coach()
+        public Image()
         {
             this.Id = Guid.NewGuid().ToString();
         }
 
-        [Required]
-        public string PlayerId { get; set; }
+        //public int ChampionId { get; set; }
 
-        public Player Player { get; set; }
+        //public Champion Champion { get; set; }
+
+        [Required]
+        public string CreatorId { get; set; }
+
+        [ForeignKey(nameof(CreatorId))]
+        public Player Creator { get; set; }
+
+        [Required]
+        public string Extension { get; set; }
     }
 }

@@ -259,6 +259,29 @@ namespace LegendsCoach.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Players_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayerComments",
                 columns: table => new
                 {
@@ -284,13 +307,18 @@ namespace LegendsCoach.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Champions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Opinion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ChampionName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Origin = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Power = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PlayerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImageId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -298,9 +326,15 @@ namespace LegendsCoach.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Champions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Players_PlayerId",
+                        name: "FK_Champions_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Champions_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
@@ -325,15 +359,15 @@ namespace LegendsCoach.Data.Migrations
                 {
                     table.PrimaryKey("PK_PostComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PostComments_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
+                        name: "FK_PostComments_Champions_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Champions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PostComments_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
+                        name: "FK_PostComments_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -388,6 +422,21 @@ namespace LegendsCoach.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Champions_ImageId",
+                table: "Champions",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Champions_IsDeleted",
+                table: "Champions",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Champions_PlayerId",
+                table: "Champions",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Coaches_IsDeleted",
                 table: "Coaches",
                 column: "IsDeleted");
@@ -397,6 +446,16 @@ namespace LegendsCoach.Data.Migrations
                 table: "Coaches",
                 column: "PlayerId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_CreatorId",
+                table: "Images",
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_IsDeleted",
+                table: "Images",
+                column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayerComments_IsDeleted",
@@ -449,16 +508,6 @@ namespace LegendsCoach.Data.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_IsDeleted",
-                table: "Posts",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Posts_PlayerId",
-                table: "Posts",
-                column: "PlayerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ranks_IsDeleted",
                 table: "Ranks",
                 column: "IsDeleted");
@@ -494,7 +543,10 @@ namespace LegendsCoach.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Champions");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Players");

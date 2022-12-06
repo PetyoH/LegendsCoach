@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegendsCoach.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221130195345_InitialMigration")]
+    [Migration("20221206210524_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,6 +144,66 @@ namespace LegendsCoach.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("LegendsCoach.Data.Models.Champion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ChampionName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ImageId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Origin")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PlayerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("Champions");
+                });
+
             modelBuilder.Entity("LegendsCoach.Data.Models.Coach", b =>
                 {
                     b.Property<string>("Id")
@@ -173,6 +233,40 @@ namespace LegendsCoach.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Coaches");
+                });
+
+            modelBuilder.Entity("LegendsCoach.Data.Models.Image", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("LegendsCoach.Data.Models.Player", b =>
@@ -300,44 +394,6 @@ namespace LegendsCoach.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Positions");
-                });
-
-            modelBuilder.Entity("LegendsCoach.Data.Models.Post", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Opinion")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PlayerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("LegendsCoach.Data.Models.PostComment", b =>
@@ -520,6 +576,25 @@ namespace LegendsCoach.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LegendsCoach.Data.Models.Champion", b =>
+                {
+                    b.HasOne("LegendsCoach.Data.Models.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LegendsCoach.Data.Models.Player", "Player")
+                        .WithMany("Champions")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Player");
+                });
+
             modelBuilder.Entity("LegendsCoach.Data.Models.Coach", b =>
                 {
                     b.HasOne("LegendsCoach.Data.Models.Player", "Player")
@@ -529,6 +604,17 @@ namespace LegendsCoach.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("LegendsCoach.Data.Models.Image", b =>
+                {
+                    b.HasOne("LegendsCoach.Data.Models.Player", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("LegendsCoach.Data.Models.Player", b =>
@@ -569,17 +655,6 @@ namespace LegendsCoach.Data.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("LegendsCoach.Data.Models.Post", b =>
-                {
-                    b.HasOne("LegendsCoach.Data.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Player");
-                });
-
             modelBuilder.Entity("LegendsCoach.Data.Models.PostComment", b =>
                 {
                     b.HasOne("LegendsCoach.Data.Models.Player", "Player")
@@ -588,7 +663,7 @@ namespace LegendsCoach.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LegendsCoach.Data.Models.Post", "Post")
+                    b.HasOne("LegendsCoach.Data.Models.Champion", "Post")
                         .WithMany("PostComments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -659,8 +734,15 @@ namespace LegendsCoach.Data.Migrations
                     b.Navigation("Roles");
                 });
 
+            modelBuilder.Entity("LegendsCoach.Data.Models.Champion", b =>
+                {
+                    b.Navigation("PostComments");
+                });
+
             modelBuilder.Entity("LegendsCoach.Data.Models.Player", b =>
                 {
+                    b.Navigation("Champions");
+
                     b.Navigation("Coach");
 
                     b.Navigation("PlayerComments");
@@ -671,11 +753,6 @@ namespace LegendsCoach.Data.Migrations
             modelBuilder.Entity("LegendsCoach.Data.Models.Position", b =>
                 {
                     b.Navigation("Players");
-                });
-
-            modelBuilder.Entity("LegendsCoach.Data.Models.Post", b =>
-                {
-                    b.Navigation("PostComments");
                 });
 
             modelBuilder.Entity("LegendsCoach.Data.Models.Rank", b =>

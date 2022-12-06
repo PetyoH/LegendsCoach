@@ -32,8 +32,8 @@
         [Required]
         public int RankId { get; set; }
 
-        public List<Rank> Ranks { get; set; } = new List<Rank>();
+        public ICollection<Rank> Ranks { get; set; } = new HashSet<Rank>();
 
-        public List<Position> Positions { get; set; } = new List<Position>();
+        public ICollection<Position> Positions { get; set; } = new HashSet<Position>();
     }
 }

@@ -1,14 +1,21 @@
 ﻿@using LegendsCoach.Common
 @using LegendsCoach.Data.Models
+@using LegendsCoach.Services.Data;
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@*@inject PlayerService playerService*@
+
+@{
+    string userId = UserManager.GetUserId(User);
+    //string playerId = await playerService.GetPlayerIdAsync(userId);
+}
 
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
+            <a class="nav-link" title="Manage">Hello @this.User.Identity.Name!</a>
         </li>
          <li class="nav-item">
             <a class="nav-link" asp-action="Edit" asp-controller="Player" title="Manage">Edit profile</a>
