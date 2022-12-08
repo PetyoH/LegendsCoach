@@ -1,5 +1,6 @@
 ﻿namespace LegendsCoach.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using LegendsCoach.Data.Models;
@@ -44,11 +45,19 @@
                 return this.View(model);
             }
 
-            string playerId = await this.playerService.GetPlayerIdAsync(this.User.Id());
+            try
+            {
+                string playerId = await this.playerService.GetPlayerIdAsync(this.User.Id());
 
-            await this.championService.CreateAsync(model, playerId, $"{this.environment.WebRootPath}/images");
+                await this.championService.CreateAsync(model, playerId, $"{this.environment.WebRootPath}/images");
 
-            return this.RedirectToAction("All", "Champion");
+                return this.RedirectToAction("All", "Champion");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
+            }
         }
 
         [HttpGet]
@@ -58,6 +67,14 @@
             {
                 Champions = await this.championService.GetAllAsync<ChampionInListViewModel>(),
             };
+
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
 
             return this.View(model);
         }

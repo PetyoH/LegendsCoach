@@ -55,7 +55,6 @@
                 Extension = extension,
             };
 
-
             champion.Image = image;
 
             Directory.CreateDirectory($"{imagePath}/champions/");
@@ -66,6 +65,15 @@
 
             await this.championRepository.AddAsync(champion);
             await this.championRepository.SaveChangesAsync();
+        }
+
+        public async Task<T> GetChampionDetailsAsync<T>(int championId)
+        {
+            return await this.championRepository
+                .AllAsNoTracking()
+                .Where(c => c.Id == championId)
+                .To<T>()
+                .FirstOrDefaultAsync();
         }
     }
 }

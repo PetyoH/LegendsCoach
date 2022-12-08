@@ -4,56 +4,51 @@
 }
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach(var champion in Model.Champions)
+    @foreach (var champion in Model.Champions)
     {
-        <div class="col">
+        <div>
             <div class="card h-100">
-                <img src="@champion.ImageUrl" class="card-img-top"
-                 alt="Skyscrapers" />
+                <img src="@champion.ImageUrl" class="card-img h-50"
+                 alt="image" />
                 <div class="card-body">
-                    <h5 class="card-title text-center">@champion.ChampionName</h5>
-                    <p class="card-text">
-                        This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.
-                    </p>
+                    <h5 class="card-title text-center pb-4">@champion.ChampionName</h5>
+                    <p class="text-center card-text pb-4">@champion.Description</p>
+                    <ul class="list-group pt-4">
+                        <li class="list-group-item">Origin: @champion.Origin</li>
+                        <li class="list-group-item">Level: @champion.Level</li>
+                        <li class="list-group-item">Power: @champion.Power</li>
+                    </ul>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+
+                <div class="card-footer text-center row px-0 mx-0">
+                    <div class="col gap-2">
+                        <button type="button" class="btn btn-warning">Warning</button>
+                        <button type="button" class="btn btn-light">Light</button>
+                        <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@champion.Id">More Info</a></button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        @*<div class="card col">
+    <img src="@champion.ImageUrl" class="card-img-top" alt="image">
+    <div class="card-body">
+    <h5 class="card-title">@champion.ChampionName</h5>
+    <p class="card-text">@champion.Description</p>
+    </div>
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">Origin: @champion.Origin</li>
+    <li class="list-group-item">Level: @champion.Level</li>
+    <li class="list-group-item">Power: @champion.Power</li>
+    </ul>
+    <div class="card-footer text-center row px-0 mx-0">
+    <div class="col gap-2">
+    <button type="button" class="btn btn-warning">Warning</button>
+    <button type="button" class="btn btn-light">Light</button>
+    <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@champion.Id">More Info</a></button>
+    </div>
+    </div>
+
+    </div>*@
     }
-    
-    <div class="col">
-        <div class="card h-100">
-            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top"
-                 alt="Los Angeles Skyscrapers" />
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                    This card has supporting text below as a natural lead-in to additional content.
-                </p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100">
-            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top"
-                 alt="Palm Springs Road" />
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This card has even longer content than the first to show
-                    that equal height action.
-                </p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
 </div>

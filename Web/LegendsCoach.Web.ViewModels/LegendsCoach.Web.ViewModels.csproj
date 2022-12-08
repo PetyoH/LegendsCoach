@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\LegendsCoach.Data.Models\LegendsCoach.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\LegendsCoach.Services.Mapping\LegendsCoach.Services.Mapping.csproj" />
+    <ProjectReference Include="..\LegendsCoach.Web.Infrastructure\LegendsCoach.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

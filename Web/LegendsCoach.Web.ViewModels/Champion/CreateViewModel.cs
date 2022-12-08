@@ -9,6 +9,7 @@
 
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Mapping;
+    using LegendsCoach.Web.Infrastructure.Attrubutes;
     using Microsoft.AspNetCore.Http;
 
     public class CreateViewModel : IMapFrom<Champion>
@@ -34,6 +35,7 @@
         public string Description { get; set; }
 
         [Required]
+        [AllowedExtensionsAttribute(new string[] { ".jpg", ".jpeg", ".png" })]
         public IFormFile Image { get; set; }
 
         public ICollection<PostComment> PostComments { get; set; } = new HashSet<PostComment>();

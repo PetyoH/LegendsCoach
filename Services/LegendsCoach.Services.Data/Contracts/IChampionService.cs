@@ -13,5 +13,7 @@
         Task CreateAsync(CreateViewModel model, string playerId, string imagePath);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
+
+        Task<T> GetChampionDetailsAsync<T>(int championId);
     }
 }
