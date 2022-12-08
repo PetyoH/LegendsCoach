@@ -58,14 +58,12 @@
 
             services.AddSingleton(configuration);
 
-            services
-                .AddAuthentication()
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "ApplicationUser/Login";
-
-                    options.LogoutPath = "ApplicationUser/Logout";
-                });
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/ApplicationUser/Login";
+                options.LogoutPath = "/ApplicationUser/Logout";
+                options.AccessDeniedPath = "/ApplicationUser/AccessDenied";
+            });
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
