@@ -11,12 +11,12 @@
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                         <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                            <div class="card-body p-5 text-center">
+                            <div class="card-body p-5">
 
-                                <div class="mb-md-5 mt-md-4 pb-5">
+                                <div class="mb-md-5 mt-md-4">
 
-                                    <h2 class="fw-bold mb-2 text-uppercase">@ViewData["Title"]</h2>
-                                    <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                                    <h2 class="fw-bold mb-2 text-uppercase text-center">@ViewData["Title"]</h2>
+                                    <p class="text-white-50 mb-5 text-center">Please enter your login and password!</p>
                                     <div asp-validation-summary="ModelOnly" class="text-danger text-start"></div>
 
                                     <div class="form-outline form-white mb-4 mt-2">
@@ -33,11 +33,11 @@
                                         <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                     </div>
 
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                    <button class="btn btn-outline-light btn-lg px-5 w-100 mt-2" type="submit">Login</button>
                                 </div>
 
                                 <div>
-                                    <p class="mb-0">
+                                    <p class="mb-0 text-center">
                                         Don't have an account? <a asp-controller="ApplicationUser" asp-action="Register" class="text-white-50 fw-bold">Sign Up</a>
                                     </p>
                                 </div>

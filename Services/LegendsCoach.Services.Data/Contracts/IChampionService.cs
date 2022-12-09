@@ -10,7 +10,7 @@
 
     public interface IChampionService
     {
-        Task CreateAsync(CreateViewModel model, string playerId, string imagePath);
+        Task CreateAsync(ChampionCreateViewModel model, string playerId, string imagePath);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 

@@ -32,13 +32,13 @@
         [HttpGet]
         public IActionResult Create()
         {
-            var model = new CreateViewModel();
+            var model = new ChampionCreateViewModel();
 
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateViewModel model)
+        public async Task<IActionResult> Create(ChampionCreateViewModel model)
         {
             if (!this.ModelState.IsValid)
             {

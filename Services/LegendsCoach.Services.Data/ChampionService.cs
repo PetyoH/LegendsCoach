@@ -35,7 +35,7 @@
             return champions;
         }
 
-        public async Task CreateAsync(CreateViewModel model, string playerId, string imagePath)
+        public async Task CreateAsync(ChampionCreateViewModel model, string playerId, string imagePath)
         {
             var champion = new Champion
             {
