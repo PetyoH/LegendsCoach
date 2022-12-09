@@ -3,14 +3,14 @@
     ViewData["Title"] = "All Champions";
 }
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row row-cols-1 row-cols-md-4 g-3">
     @foreach (var champion in Model.Champions)
     {
         <div>
             <div class="card h-100">
-                <img src="@champion.ImageUrl" class="card-img h-50"
+                <img src="@champion.ImageUrl" class="card-img"
                  alt="image" />
-                <div class="card-body">
+                <div class="card-body p-4">
                     <h5 class="card-title text-center pb-4">@champion.ChampionName</h5>
                     <p class="text-center card-text pb-4">@champion.Description</p>
                     <ul class="list-group pt-4">
@@ -27,5 +27,21 @@
                 </div>
             </div>
         </div>
+
+        @*<div class="card" style="width: 300px;">
+            <img src="@champion.ImageUrl" class="w-100 border-bottom" alt="Image">
+            <div class="card-body">
+                <h5 class="card-title">@champion.ChampionName</h5>
+                <p class="card-text">@champion.Description</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">@champion.Origin</li>
+                <li class="list-group-item">@champion.Level</li>
+                <li class="list-group-item">@champion.Power</li>
+            </ul>
+            <div class="card-body text-center">
+                <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@champion.Id">More Info</a></button>
+            </div>
+        </div>*@
     }
 </div>

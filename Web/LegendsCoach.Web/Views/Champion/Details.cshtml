@@ -3,20 +3,32 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="card mt-4 text-center">
-    <img src="@Model.ImageUrl" alt="image" />
-    <div class="card-body h-100">
-        <h5 class="card-title">@Model.ChampionName</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">@Model.Origin</li>
-        <li class="list-group-item">@Model.Power</li>
-        <li class="list-group-item">@Model.Level</li>
-        <li class="list-group-item">@Model.Description</li>
-    </ul>
-    <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+
+<div class="row justify-content-center">
+    <div class="card w-75 mt-4 pt-4">
+        <div class="row g-0">
+            <div class="col-md-4 mb-3">
+                <img src="@Model.ImageUrl" class="img-fluid rounded-start" alt="Image">
+            </div>
+            <div class="col-md-8 ">
+                <div class="card-body">
+                    <h5 class="card-title text-center pb-5">@Model.ChampionName</h5>
+                    <p class="card-text pb-5">@Model.Description</p>
+                    <ul class="list-group list-group-flush pt-4 pb-4 mb-5">
+                        <li class="list-group-item">Origin: @Model.Origin</li>
+                        <li class="list-group-item">Power: @Model.Power</li>
+                        <li class="list-group-item">Level: @Model.Level</li>
+                    </ul>
+                </div>
+                <div class=" ms-4 ps-4">
+                    <div class="mt-3 pt-4 ms-4 ps-4">
+                        <div class="mt-4 pt-4 ms-4 ps-4">
+                            <button type="button" class="btn btn-primary w-25 mt-4 ms-4"><a class="nav-link" asp-action="Details">Edit</a></button>
+                            <button type="button" class="btn btn-danger w-25 mt-4 ms-4"><a class="nav-link" asp-action="Details">Delete</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
