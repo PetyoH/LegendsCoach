@@ -28,6 +28,7 @@
                               new RolesSeeder(),
                               new RanksSeeder(),
                               new PositionsSeeder(),
+                              new AdminSeeder(),
                           };
 
             foreach (var seeder in seeders)

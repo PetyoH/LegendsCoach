@@ -42,6 +42,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Info" asp-action="About">About</a>
                         </li>
+                        @if(User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Administration" asp-controller="Info" asp-action="About">Add Coaches</a>
+                            </li>
+                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
