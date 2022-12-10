@@ -26,7 +26,7 @@
         public int Level { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(200)]
         public string Description { get; set; }
 
         [Required]

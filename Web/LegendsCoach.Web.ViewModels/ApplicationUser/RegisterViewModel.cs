@@ -13,7 +13,7 @@
     public class RegisterViewModel : IMapFrom<Player>
     {
         [Required]
-        [StringLength(20)]
+        [StringLength(30)]
         public string UserName { get; set; }
 
         [Required]
@@ -21,7 +21,7 @@
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(30)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -31,7 +31,7 @@
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [StringLength(40, MinimumLength = 1)]
+        [StringLength(40, MinimumLength = 2)]
         public string GameName { get; set; }
 
         [Required]
@@ -39,7 +39,7 @@
         public int Level { get; set; }
 
         [Required]
-        [StringLength(40, MinimumLength = 10)]
+        [StringLength(200, MinimumLength = 20)]
         public string Description { get; set; }
 
         [Required]

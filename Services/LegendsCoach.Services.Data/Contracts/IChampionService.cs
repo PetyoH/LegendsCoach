@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using LegendsCoach.Data.Models;
     using LegendsCoach.Web.ViewModels.Champion;
 
     public interface IChampionService
@@ -16,6 +17,10 @@
 
         Task<T> GetChampionDetailsAsync<T>(int championId);
 
+        Task<Champion> GetChampionAsync(int championId);
+
         Task<IEnumerable<T>> GetLatestChampionsAsync<T>();
+
+        Task UpdateChampionAsync(int championId, string playerId, ChampionEditViewModel model, string imagePath);
     }
 }

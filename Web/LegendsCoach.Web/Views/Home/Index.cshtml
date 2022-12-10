@@ -8,7 +8,14 @@
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>Using our platform will make you a better player</p>
 </div>
-<h2 class="text-center mb-4">Latest champions</h2>
+@if (Model.Champions.Any())
+{
+    <h2 class="text-center mb-4">Latest champions</h2>
+}
+else
+{
+    <h2 class="text-center mb-4">No champions yet</h2>
+}
 <div class="row row-cols-1 row-cols-md-4 g-3">
     @foreach (var champion in Model.Champions)
     {
@@ -28,7 +35,9 @@
 
                 <div class="card-footer text-center row px-0 mx-0">
                     <div class="col gap-2">
-                        <button type="button" class="btn btn-info"><a class="nav-link" asp-controller="Champion" asp-action="Details" asp-route-id="@champion.Id">More Info</a></button>
+                        <button type="button" class="btn btn-info">
+                            <a class="nav-link" asp-controller="Champion" asp-action="Details" asp-route-id="@champion.Id">More Info</a>
+                        </button>
                     </div>
                 </div>
             </div>

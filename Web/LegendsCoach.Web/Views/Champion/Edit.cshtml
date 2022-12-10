@@ -1,0 +1,80 @@
+﻿@model ChampionEditViewModel
+@{
+    ViewData["Title"] = "Edit Champion";
+}
+
+<div class="row">
+
+    <section>
+        <form id="account" method="post" enctype="multipart/form-data">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5">
+
+                                <div class="mb-md-2 mt-md-4">
+
+                                    <h2 class="fw-bold mb-4 text-center">@ViewData["Title"]</h2>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.ChampionName" class="form-label"></label>
+                                        <input asp-for="@Model.ChampionName" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.ChampionName" class="text-danger"></span>
+
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Origin" class="form-label"></label>
+                                        <input asp-for="@Model.Origin" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.Origin" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Power" class="form-label"></label>
+                                        <input asp-for="@Model.Power" type="number" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.Power" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Level" class="form-label"></label>
+                                        <input asp-for="@Model.Level" type="number" class="form-control form-control-lg" />
+                                        <span asp-validation-for="@Model.Level" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4">
+
+                                        <label asp-for="@Model.Description" class="form-label"></label>
+                                        <textarea asp-for="@Model.Description" class="form-control form-control-lg" rows="3"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+
+                                    </div>
+
+                                    <div>
+                                        <label asp-for="@Model.Image" class="form-label mt-4"></label>
+                                        <input asp-for="@Model.Image" class="form-control">
+                                        <span asp-validation-for="@Model.Image" class="text-danger"></span>
+                                    </div>
+
+                                    <button class="btn btn-outline-light btn-lg px-5 mt-5 w-100" type="submit">Edit</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</div>
+
+
+

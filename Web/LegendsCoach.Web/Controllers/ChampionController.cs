@@ -78,5 +78,29 @@
 
             return this.View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = await this.championService.GetChampionDetailsAsync<ChampionEditViewModel>(id);
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ChampionEditViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var userId = this.User.Id();
+            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+
+            await this.championService.UpdateChampionAsync(id, playerId, model, $"{this.environment.WebRootPath}/images");
+
+            return this.RedirectToAction("All", "Champion");
+        }
     }
 }

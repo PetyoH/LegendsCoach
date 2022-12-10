@@ -18,10 +18,6 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        //public int ChampionId { get; set; }
-
-        //public Champion Champion { get; set; }
-
         [Required]
         public string CreatorId { get; set; }
 

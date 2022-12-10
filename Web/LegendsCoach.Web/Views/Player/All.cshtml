@@ -3,7 +3,12 @@
     this.ViewData["Title"] = "Players";
 }
 <div class="row row-cols-1 row-cols-md-3 g-4">
-     
+     @if (!Model.Players.Any())
+    {
+        <div class="w-100 text-center">
+            <h1 class="w-100">There are no players yet</h1>
+        </div>
+    }
     @foreach (var item in Model.Players)
     {
         <div class="col mb-3">

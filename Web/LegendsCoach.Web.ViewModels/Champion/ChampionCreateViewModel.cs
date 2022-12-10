@@ -31,7 +31,7 @@
         public int Level { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 10)]
+        [StringLength(200, MinimumLength = 20)]
         public string Description { get; set; }
 
         [Required]

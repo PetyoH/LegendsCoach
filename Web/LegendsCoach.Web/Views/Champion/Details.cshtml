@@ -21,8 +21,13 @@
                     </ul>
                 </div>
                 <div class="text-center mb-3">
-                    <button type="button" class="btn btn-primary w-25 mt-4 ms-4"><a class="nav-link" asp-action="Details">Edit</a></button>
-                    <button type="button" class="btn btn-danger w-25 mt-4 ms-4"><a class="nav-link" asp-action="Details">Delete</a></button>
+                    @*@if (Model.IsOwner)
+                    {
+                    }*@
+                    <div class="d-flex justify-content-around">
+                        <a class="nav-link btn btn-primary w-25 mt-4 ms-4" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a class="nav-link btn btn-danger w-25 mt-4 ms-4" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                    </div>
                 </div>
             </div>
         </div>

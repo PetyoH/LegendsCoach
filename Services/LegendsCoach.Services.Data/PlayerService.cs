@@ -60,8 +60,6 @@
 
         public async Task<string> GetPlayerIdAsync(string userId)
         {
-
-
             var player = await this.playerRepository
                 .AllAsNoTracking()
                 .Where(p => p.UserId == userId)
@@ -91,7 +89,6 @@
         {
             var player = await this.GetPlayerAsync(userId);
 
-            //player.Id = playerId;
             player.GameName = model.GameName;
             player.Description = model.Description;
             player.Level = model.Level;

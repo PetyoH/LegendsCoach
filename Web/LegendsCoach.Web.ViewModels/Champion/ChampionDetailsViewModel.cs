@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -12,6 +13,8 @@
 
     public class ChampionDetailsViewModel : IMapFrom<Champion>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string ChampionName { get; set; }
 
         public string Origin { get; set; }
@@ -23,6 +26,8 @@
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public bool IsOwner { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
