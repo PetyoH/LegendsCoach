@@ -75,5 +75,17 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<T>> GetLatestChampionsAsync<T>()
+        {
+            var champions = await this.championRepository
+                .AllAsNoTracking()
+                .OrderByDescending(e => e.CreatedOn)
+                .Take(8)
+                .To<T>()
+                .ToListAsync();
+
+            return champions;
+        }
     }
 }

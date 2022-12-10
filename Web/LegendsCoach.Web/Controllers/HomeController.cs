@@ -1,20 +1,31 @@
 ﻿namespace LegendsCoach.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
+    using LegendsCoach.Services.Data.Contracts;
     using LegendsCoach.Web.ViewModels;
+    using LegendsCoach.Web.ViewModels.Champion;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly IChampionService championService;
+
+        public HomeController(IChampionService championService)
         {
-            return this.View();
+            this.championService = championService;
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return this.View();
+            var model = new ChampionsListViewModel
+            {
+                Champions = await this.championService.GetLatestChampionsAsync<ChampionInListViewModel>(),
+            };
+
+            return this.View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

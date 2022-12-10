@@ -15,5 +15,7 @@
         Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<T> GetChampionDetailsAsync<T>(int championId);
+
+        Task<IEnumerable<T>> GetLatestChampionsAsync<T>();
     }
 }

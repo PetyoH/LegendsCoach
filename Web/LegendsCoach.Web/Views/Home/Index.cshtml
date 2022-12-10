@@ -1,9 +1,37 @@
-﻿@using LegendsCoach.Common
+﻿@model ChampionsListViewModel
+@using LegendsCoach.Common
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div class="text-center mb-5">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>Using our platform will make you a better player</p>
+</div>
+<h2 class="text-center mb-4">Latest champions</h2>
+<div class="row row-cols-1 row-cols-md-4 g-3">
+    @foreach (var champion in Model.Champions)
+    {
+        <div>
+            <div class="card h-100">
+                <img src="@champion.ImageUrl" class="card-img"
+                 alt="image" />
+                <div class="card-body p-4">
+                    <h5 class="card-title text-center pb-4">@champion.ChampionName</h5>
+                    <p class="text-center card-text pb-4">@champion.Description</p>
+                    <ul class="list-group pt-4">
+                        <li class="list-group-item">Origin: @champion.Origin</li>
+                        <li class="list-group-item">Level: @champion.Level</li>
+                        <li class="list-group-item">Power: @champion.Power</li>
+                    </ul>
+                </div>
+
+                <div class="card-footer text-center row px-0 mx-0">
+                    <div class="col gap-2">
+                        <button type="button" class="btn btn-info"><a class="nav-link" asp-controller="Champion" asp-action="Details" asp-route-id="@champion.Id">More Info</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
