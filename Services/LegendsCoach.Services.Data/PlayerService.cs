@@ -60,6 +60,8 @@
 
         public async Task<string> GetPlayerIdAsync(string userId)
         {
+
+
             var player = await this.playerRepository
                 .AllAsNoTracking()
                 .Where(p => p.UserId == userId)
@@ -68,12 +70,11 @@
             return player?.Id;
         }
 
-        public async Task<T> GetPlayerAsync<T>(string userId)
+        public async Task<Player> GetPlayerAsync(string userId)
         {
             return await this.playerRepository
                 .AllAsNoTracking()
                 .Where(p => p.UserId == userId)
-                .To<T>()
                 .FirstOrDefaultAsync();
         }
 
@@ -86,17 +87,16 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task UpdatePlayerAsync(PlayerEditViewModel model)
+        public async Task UpdatePlayerAsync(PlayerEditViewModel model, string userId, string playerId)
         {
-            var player = new Player
-            {
-                Id = model.Id,
-                GameName = model.GameName,
-                Description = model.Description,
-                Level = model.Level,
-                PositionId = model.PositionId,
-                RankId = model.RankId,
-            };
+            var player = await this.GetPlayerAsync(userId);
+
+            //player.Id = playerId;
+            player.GameName = model.GameName;
+            player.Description = model.Description;
+            player.Level = model.Level;
+            player.PositionId = model.PositionId;
+            player.RankId = model.RankId;
 
             this.playerRepository.Update(player);
             await this.playerRepository.SaveChangesAsync();

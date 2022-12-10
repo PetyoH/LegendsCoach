@@ -47,7 +47,8 @@
         public async Task<IActionResult> Edit()
         {
             var userId = this.User.Id();
-            var model = await this.playerService.GetPlayerAsync<PlayerEditViewModel>(userId);
+            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+            var model = await this.playerService.GetPlayerDetailsAsync<PlayerEditViewModel>(playerId);
 
             model.Ranks = await this.rankService.GetRanksAsync();
             model.Positions = await this.positionService.GetPositionsAsync();
@@ -66,9 +67,12 @@
                 return this.View(model);
             }
 
-            await this.playerService.UpdatePlayerAsync(model);
+            var userId = this.User.Id();
+            var playerId = await this.playerService.GetPlayerIdAsync(userId);
 
-            return this.View(model);
+            await this.playerService.UpdatePlayerAsync(model, userId, playerId);
+
+            return this.RedirectToAction("Details", "Player", new { id = playerId });
         }
 
         [HttpGet]

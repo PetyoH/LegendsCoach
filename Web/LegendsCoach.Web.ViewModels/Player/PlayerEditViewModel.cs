@@ -12,7 +12,7 @@
 
     public class PlayerEditViewModel : IMapFrom<Player>
     {
-        public string Id { get; set; }
+        //public string Id { get; set; }
 
         [Required]
         [StringLength(40, MinimumLength = 1)]
@@ -25,6 +25,9 @@
         [Required]
         [StringLength(40, MinimumLength = 10)]
         public string Description { get; set; }
+
+        //[Required]
+        //public string UserId { get; set; }
 
         [Required]
         public int PositionId { get; set; }
