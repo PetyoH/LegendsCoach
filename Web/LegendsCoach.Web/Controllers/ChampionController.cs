@@ -100,6 +100,14 @@
 
             await this.championService.UpdateChampionAsync(id, playerId, model, $"{this.environment.WebRootPath}/images");
 
+            return this.RedirectToAction("Details", "Champion", id);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.championService.DeleteChampionAsync(id);
+
             return this.RedirectToAction("All", "Champion");
         }
     }
