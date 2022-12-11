@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Dashboard\" />
+    <Folder Include="Areas\Administration\Views\Player\" />
     <Folder Include="wwwroot\images\champions\" />
   </ItemGroup>
 </Project>

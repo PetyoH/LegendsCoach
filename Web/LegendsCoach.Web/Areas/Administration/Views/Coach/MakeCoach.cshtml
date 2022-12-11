@@ -1,0 +1,42 @@
+﻿@model PlayerToCoachListViewModel
+@{
+    ViewData["Title"] = "Coach";
+}
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>Player Name</th>
+            <th>Coach</th>
+            <th>Promote</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Players)
+    {
+        <tbody>
+            <tr>
+                <td>@item.GameName</td>
+                @if (item.CoachId == null)
+                {
+                    <td>No</td>
+                    <td>
+                        <a class="btn btn-primary" asp-area="Administration" asp-action="Promote" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                    </td>
+                }
+                else
+                {
+                    <td>Yes</td>
+                    <td>
+                        <button class="btn btn-success disabled">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </td>
+
+                    }
+                </tr>
+
+            </tbody>
+                }
+    </table>

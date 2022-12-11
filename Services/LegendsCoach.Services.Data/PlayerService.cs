@@ -18,11 +18,14 @@
     public class PlayerService : IPlayerService
     {
         private readonly IDeletableEntityRepository<Player> playerRepository;
+        private readonly IDeletableEntityRepository<Coach> coachRepository;
 
         public PlayerService(
-             IDeletableEntityRepository<Player> playerRepository)
+             IDeletableEntityRepository<Player> playerRepository,
+             IDeletableEntityRepository<Coach> coachRepository)
         {
             this.playerRepository = playerRepository;
+            this.coachRepository = coachRepository;
         }
 
         public async Task AddPlayerAsync(RegisterViewModel model, string userId)
@@ -68,7 +71,7 @@
             return player?.Id;
         }
 
-        public async Task<Player> GetPlayerAsync(string userId)
+        public async Task<Player> GetCurrentPlayerAsync(string userId)
         {
             return await this.playerRepository
                 .AllAsNoTracking()
@@ -87,7 +90,7 @@
 
         public async Task UpdatePlayerAsync(PlayerEditViewModel model, string userId, string playerId)
         {
-            var player = await this.GetPlayerAsync(userId);
+            var player = await this.GetCurrentPlayerAsync(userId);
 
             player.GameName = model.GameName;
             player.Description = model.Description;
@@ -97,6 +100,38 @@
 
             this.playerRepository.Update(player);
             await this.playerRepository.SaveChangesAsync();
+        }
+
+        public async Task AddCoach(string playerId)
+        {
+            var coach = new Coach();
+
+            coach.PlayerId = playerId;
+
+            await this.coachRepository.AddAsync(coach);
+
+            var player = await this.GetPlayerAsync(playerId);
+
+            player.CoachId = coach.Id;
+
+            this.playerRepository.Update(player);
+            await this.playerRepository.SaveChangesAsync();
+        }
+
+        public async Task<Player> GetPlayerAsync(string playerId)
+        {
+            return await this.playerRepository.AllAsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == playerId);
+        }
+
+        public async Task<IEnumerable<T>> GetAllWithCoachInfoAsync<T>()
+        {
+            var players = await this.playerRepository.AllAsNoTracking()
+                .OrderByDescending(e => e.CreatedOn)
+                .To<T>()
+                .ToListAsync();
+
+            return players;
         }
     }
 }

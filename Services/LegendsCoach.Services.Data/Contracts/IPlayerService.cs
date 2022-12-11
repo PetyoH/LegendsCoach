@@ -16,14 +16,20 @@
 
         Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage = 9);
 
+        Task<IEnumerable<T>> GetAllWithCoachInfoAsync<T>();
+
         Task<int> GetCountAsync();
 
         Task<string> GetPlayerIdAsync(string userId);
 
-        Task<Player> GetPlayerAsync(string userId);
+        Task<Player> GetPlayerAsync(string playerId);
+
+        Task<Player> GetCurrentPlayerAsync(string userId);
 
         Task<T> GetPlayerDetailsAsync<T>(string playerId);
 
         Task UpdatePlayerAsync(PlayerEditViewModel player, string userId, string playerId);
+
+        Task AddCoach(string playerId);
     }
 }
