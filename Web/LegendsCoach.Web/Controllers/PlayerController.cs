@@ -30,7 +30,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> All(int id = 1)
         {
-            const int ItemsPerPage = 9;
+            const int ItemsPerPage = 8;
 
             var model = new PlayersListViewModel
             {

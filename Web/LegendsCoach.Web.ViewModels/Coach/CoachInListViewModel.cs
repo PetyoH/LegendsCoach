@@ -1,4 +1,4 @@
-﻿namespace LegendsCoach.Web.ViewModels.Player
+﻿namespace LegendsCoach.Web.ViewModels.Coach
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Mapping;
 
-    public class PlayerInListViewModel : IMapFrom<Player>
+    public class CoachInListViewModel : IMapFrom<Player>
     {
         public string Id { get; set; }
 
@@ -21,5 +21,6 @@
 
         public string PositionName { get; set; }
 
+        public string CoachId { get; set; }
     }
 }

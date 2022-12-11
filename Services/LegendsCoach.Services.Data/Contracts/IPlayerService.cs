@@ -14,7 +14,7 @@
     {
         Task AddPlayerAsync(RegisterViewModel model, string userId);
 
-        Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage = 9);
+        Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage = 8);
 
         Task<IEnumerable<T>> GetAllWithCoachInfoAsync<T>();
 

@@ -47,6 +47,7 @@
         public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int playersPerPage)
         {
             var players = await this.playerRepository.AllAsNoTracking()
+                .Where(p => p.CoachId == null)
                 .OrderByDescending(e => e.CreatedOn)
                 .Skip((page - 1) * playersPerPage)
                 .Take(playersPerPage)

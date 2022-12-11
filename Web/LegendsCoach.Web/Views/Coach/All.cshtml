@@ -1,0 +1,37 @@
+﻿@model CoachesListViewModel
+@{
+    this.ViewData["Title"] = "Coaches";
+}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @if (!Model.Players.Any())
+    {
+        <div class="w-100 text-center">
+            <h1 class="w-100">There are no coaches yet</h1>
+        </div>
+    }
+    @foreach (var item in Model.Players)
+    {
+        <div class="col mb-3">
+            <div class="card">
+                <div class="card-body h-25">
+                    <h5 class="card-title text-center pb-5">@item.GameName</h5>
+                    <ul class="list-group mb-5">
+                        <li class="list-group-item">Level: @item.Level</li>
+                        <li class="list-group-item">Position: @item.PositionName</li>
+                        <li class="list-group-item">Rank: @item.RankName</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center row px-0 mx-0">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="col gap-2">
+                            <button type="button" class="btn btn-info"><a class="nav-link" asp-action="Details" asp-route-id="@item.Id">More Info</a></button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<partial name="_PagingPartial" model="@Model" />
+

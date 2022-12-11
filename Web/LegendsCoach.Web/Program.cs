@@ -76,6 +76,7 @@
             services.AddTransient<IRankService, RankService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IChampionService, ChampionService>();
+            services.AddTransient<ICoachService, CoachService>();
         }
 
         private static void Configure(WebApplication app)
