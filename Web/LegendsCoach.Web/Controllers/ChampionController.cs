@@ -74,7 +74,12 @@
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+            var userId = this.User.Id();
+            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+
             var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
+
+            model.IsOwner = await this.championService.IsOwnerAsync(model.Id, playerId);
 
             return this.View(model);
         }

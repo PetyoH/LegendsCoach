@@ -73,11 +73,13 @@
 
         public async Task<T> GetChampionDetailsAsync<T>(int championId)
         {
-            return await this.championRepository
+            var championDetails = await this.championRepository
                 .AllAsNoTracking()
                 .Where(c => c.Id == championId)
                 .To<T>()
                 .FirstOrDefaultAsync();
+
+            return championDetails;
         }
 
         public async Task<IEnumerable<T>> GetLatestChampionsAsync<T>()
@@ -139,6 +141,20 @@
 
             this.championRepository.Delete(champion);
             await this.championRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsOwnerAsync(int championId, string playerId)
+        {
+            bool isOwner = false;
+
+            var champion = await this.GetChampionAsync(championId);
+
+            if (champion.PlayerId == playerId)
+            {
+                isOwner = true;
+            }
+
+            return isOwner;
         }
     }
 }

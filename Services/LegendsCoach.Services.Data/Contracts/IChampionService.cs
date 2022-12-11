@@ -21,6 +21,8 @@
 
         Task<IEnumerable<T>> GetLatestChampionsAsync<T>();
 
+        Task<bool> IsOwnerAsync(int championId, string playerId);
+
         Task DeleteChampionAsync(int championId);
 
         Task UpdateChampionAsync(int championId, string playerId, ChampionEditViewModel model, string imagePath);
