@@ -1,14 +1,17 @@
 ﻿namespace LegendsCoach.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
-
+    using LegendsCoach.Data.Common.Repositories;
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Data;
     using LegendsCoach.Services.Data.Contracts;
+    using LegendsCoach.Web.Infrastructure.Extensions;
     using LegendsCoach.Web.ViewModels.ApplicationUser;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.EntityFrameworkCore;
 
     public class ApplicationUserController : Controller
     {
@@ -17,19 +20,22 @@
         private readonly IPositionService positionService;
         private readonly IRankService rankService;
         private readonly IPlayerService playerService;
+        private readonly IDeletableEntityRepository<Player> playerRepository;
 
         public ApplicationUserController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IPositionService positionService,
             IRankService rankService,
-            IPlayerService playerService)
+            IPlayerService playerService,
+            IDeletableEntityRepository<Player> playerRepository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.positionService = positionService;
             this.rankService = rankService;
             this.playerService = playerService;
+            this.playerRepository = playerRepository;
         }
 
         [HttpGet]
@@ -52,6 +58,15 @@
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            var playerNameExists = await this.playerRepository
+                .AllAsNoTracking()
+                .AnyAsync(p => p.GameName == model.GameName);
+
+            if (playerNameExists)
+            {
+                this.ModelState.AddModelError(string.Empty, "This Game name is already taken");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 model.Ranks = await this.rankService.GetRanksAsync();
@@ -81,6 +96,9 @@
             {
                 this.ModelState.AddModelError(string.Empty, error.Description);
             }
+
+            model.Ranks = await this.rankService.GetRanksAsync();
+            model.Positions = await this.positionService.GetPositionsAsync();
 
             return this.View(model);
         }

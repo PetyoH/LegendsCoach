@@ -30,6 +30,15 @@
 
         public async Task AddPlayerAsync(RegisterViewModel model, string userId)
         {
+            var players = await this.playerRepository
+                .AllAsNoTracking()
+                .ToListAsync();
+
+            if (players.Any(p => p.GameName == model.GameName))
+            {
+                throw new ArgumentException("There is already a player with the same name");
+            }
+
             var player = new Player
             {
                 UserId = userId,
@@ -112,9 +121,14 @@
         {
             var player = await this.GetCurrentPlayerAsync(userId);
 
-            var players = await this.playerRepository.AllAsNoTracking()
-                .Where(p => p.GameName == model.GameName)
-                .ToListAsync();
+            var playerNameExists = await this.playerRepository
+                .AllAsNoTracking()
+                .AnyAsync(p => p.GameName == model.GameName);
+
+            if (playerNameExists && player.GameName != model.GameName)
+            {
+                throw new ArgumentException("This Game name is already taken");
+            }
 
             player.GameName = model.GameName;
             player.Description = model.Description;

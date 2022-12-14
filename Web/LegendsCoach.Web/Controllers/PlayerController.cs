@@ -82,10 +82,21 @@
                 this.ModelState.AddModelError(string.Empty, ex.Message);
                 return this.View(model);
             }
+            catch (ArgumentException ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+
+                return this.View(model);
+            }
             catch (Exception ex)
             {
                 this.ModelState.AddModelError(string.Empty, ex.Message);
                 return this.View(model);
+            }
+            finally
+            {
+                model.Ranks = await this.rankService.GetRanksAsync();
+                model.Positions = await this.positionService.GetPositionsAsync();
             }
         }
 

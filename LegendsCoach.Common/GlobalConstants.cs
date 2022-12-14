@@ -7,5 +7,6 @@
         public const string AdministratorRoleName = "Administrator";
 
         public const string ModeratorRoleName = "Moderator";
+
     }
 }
