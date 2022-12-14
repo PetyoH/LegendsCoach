@@ -82,22 +82,21 @@
 
                 var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
 
-                model.IsOwner = await this.championService.IsOwnerAsync(model.Id, playerId);
+                model.IsOwner = await this.championService.IsOwnerAsync(id, playerId);
 
                 return this.View(model);
             }
-            catch (Exception)
+            catch (ArgumentNullException)
             {
-                return this.RedirectToAction("All", "Champion");
+                return this.RedirectToAction("Error404", "Error");
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = await this.championService.GetChampionDetailsAsync<ChampionEditViewModel>(id);
-
-            return this.View(model);
+                var model = await this.championService.GetChampionDetailsAsync<ChampionEditViewModel>(id);
+                return this.View(model);
         }
 
         [HttpPost]
@@ -122,9 +121,16 @@
             var userId = this.User.Id();
             var playerId = await this.playerService.GetPlayerIdAsync(userId);
 
-            await this.championService.DeleteChampionAsync(id, playerId);
+            try
+            {
+                await this.championService.DeleteChampionAsync(id, playerId);
 
-            return this.RedirectToAction("All", "Champion");
+                return this.RedirectToAction("All", "Champion");
+            }
+            catch (ArgumentNullException)
+            {
+                return this.RedirectToAction("Error404", "Error");
+            }
         }
     }
 }

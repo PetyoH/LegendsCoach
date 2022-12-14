@@ -79,6 +79,11 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
+            if (championDetails == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             return championDetails;
         }
 
@@ -133,9 +138,16 @@
 
         public async Task<Champion> GetChampionAsync(int championId)
         {
-            return await this.championRepository
+            var champion = await this.championRepository
                 .AllAsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == championId);
+
+            if (champion == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return champion;
         }
 
         public async Task DeleteChampionAsync(int championId, string playerId)
@@ -146,6 +158,10 @@
             {
                 this.championRepository.Delete(champion);
                 await this.championRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
         }
 
