@@ -78,6 +78,7 @@
             try
             {
                 var userId = this.User.Id();
+
                 var playerId = await this.playerService.GetPlayerIdAsync(userId);
 
                 var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
