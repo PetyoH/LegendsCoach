@@ -69,24 +69,43 @@
                 .Where(p => p.UserId == userId)
                 .FirstOrDefaultAsync();
 
-            return player?.Id;
+            if (player == null)
+            {
+                throw new ArgumentNullException("There is no such player");
+            }
+
+            return player.Id;
         }
 
         public async Task<Player> GetCurrentPlayerAsync(string userId)
         {
-            return await this.playerRepository
+            var player = await this.playerRepository
                 .AllAsNoTracking()
                 .Where(p => p.UserId == userId)
                 .FirstOrDefaultAsync();
+
+            if (player == null)
+            {
+                throw new ArgumentNullException("There is no such player");
+            }
+
+            return player;
         }
 
         public async Task<T> GetPlayerDetailsAsync<T>(string playerId)
         {
-            return await this.playerRepository
+            var player = await this.playerRepository
                 .AllAsNoTracking()
                 .Where(p => p.Id == playerId)
                 .To<T>()
                 .FirstOrDefaultAsync();
+
+            if (player == null)
+            {
+                throw new ArgumentNullException("There is no such player");
+            }
+
+            return player;
         }
 
         public async Task UpdatePlayerAsync(PlayerEditViewModel model, string userId, string playerId)

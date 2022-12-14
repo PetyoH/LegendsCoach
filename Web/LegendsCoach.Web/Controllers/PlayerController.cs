@@ -1,5 +1,6 @@
 ﻿namespace LegendsCoach.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using LegendsCoach.Data.Models;
@@ -67,12 +68,25 @@
                 return this.View(model);
             }
 
-            var userId = this.User.Id();
-            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+            try
+            {
+                var userId = this.User.Id();
+                var playerId = await this.playerService.GetPlayerIdAsync(userId);
 
-            await this.playerService.UpdatePlayerAsync(model, userId, playerId);
+                await this.playerService.UpdatePlayerAsync(model, userId, playerId);
 
-            return this.RedirectToAction("Details", "Player", new { id = playerId });
+                return this.RedirectToAction("Details", "Player", new { id = playerId });
+            }
+            catch (ArgumentNullException ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
+            }
         }
 
         [HttpGet]
