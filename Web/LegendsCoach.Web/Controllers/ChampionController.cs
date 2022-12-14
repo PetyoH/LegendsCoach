@@ -61,6 +61,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var model = new ChampionsListViewModel

@@ -108,9 +108,13 @@
             return player;
         }
 
-        public async Task UpdatePlayerAsync(PlayerEditViewModel model, string userId, string playerId)
+        public async Task UpdatePlayerAsync(PlayerEditViewModel model, string userId)
         {
             var player = await this.GetCurrentPlayerAsync(userId);
+
+            var players = await this.playerRepository.AllAsNoTracking()
+                .Where(p => p.GameName == model.GameName)
+                .ToListAsync();
 
             player.GameName = model.GameName;
             player.Description = model.Description;

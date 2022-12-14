@@ -29,12 +29,12 @@
                             <a class="nav-link" asp-area="" asp-controller="Player" asp-action="All">Players</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="All">Coaches</a>
+                            <a class="nav-link" asp-area="" asp-controller="Champion" asp-action="All">Champions</a>
                         </li>
                         @if(User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Champion" asp-action="All">Champions</a>
+                                <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="All">Coaches</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Champion" asp-action="Create">Create champion</a>

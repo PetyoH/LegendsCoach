@@ -73,7 +73,7 @@
                 var userId = this.User.Id();
                 var playerId = await this.playerService.GetPlayerIdAsync(userId);
 
-                await this.playerService.UpdatePlayerAsync(model, userId, playerId);
+                await this.playerService.UpdatePlayerAsync(model, userId);
 
                 return this.RedirectToAction("Details", "Player", new { id = playerId });
             }

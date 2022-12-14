@@ -28,7 +28,7 @@
 
         Task<T> GetPlayerDetailsAsync<T>(string playerId);
 
-        Task UpdatePlayerAsync(PlayerEditViewModel player, string userId, string playerId);
+        Task UpdatePlayerAsync(PlayerEditViewModel player, string userId);
 
         Task AddCoach(string playerId);
     }
