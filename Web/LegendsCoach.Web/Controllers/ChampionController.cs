@@ -75,14 +75,21 @@
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var userId = this.User.Id();
-            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+            try
+            {
+                var userId = this.User.Id();
+                var playerId = await this.playerService.GetPlayerIdAsync(userId);
 
-            var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
+                var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
 
-            model.IsOwner = await this.championService.IsOwnerAsync(model.Id, playerId);
+                model.IsOwner = await this.championService.IsOwnerAsync(model.Id, playerId);
 
-            return this.View(model);
+                return this.View(model);
+            }
+            catch (Exception)
+            {
+                return this.RedirectToAction("All", "Champion");
+            }
         }
 
         [HttpGet]
@@ -112,7 +119,10 @@
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            await this.championService.DeleteChampionAsync(id);
+            var userId = this.User.Id();
+            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+
+            await this.championService.DeleteChampionAsync(id, playerId);
 
             return this.RedirectToAction("All", "Champion");
         }

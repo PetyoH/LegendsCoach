@@ -124,8 +124,11 @@
                 await model.Image.CopyToAsync(fileStream);
             }
 
-            this.championRepository.Update(champion);
-            await this.championRepository.SaveChangesAsync();
+            if (await this.IsOwnerAsync(id, playerId))
+            {
+                this.championRepository.Update(champion);
+                await this.championRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<Champion> GetChampionAsync(int championId)
@@ -135,12 +138,15 @@
                 .FirstOrDefaultAsync(c => c.Id == championId);
         }
 
-        public async Task DeleteChampionAsync(int championId)
+        public async Task DeleteChampionAsync(int championId, string playerId)
         {
             var champion = await this.GetChampionAsync(championId);
 
-            this.championRepository.Delete(champion);
-            await this.championRepository.SaveChangesAsync();
+            if (await this.IsOwnerAsync(championId, playerId))
+            {
+                this.championRepository.Delete(champion);
+                await this.championRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<bool> IsOwnerAsync(int championId, string playerId)
