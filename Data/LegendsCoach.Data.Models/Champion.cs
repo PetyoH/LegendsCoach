@@ -41,6 +41,6 @@
 
         public Image Image { get; set; }
 
-        public ICollection<PostComment> PostComments { get; set; } = new HashSet<PostComment>();
+        public ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
     }
 }

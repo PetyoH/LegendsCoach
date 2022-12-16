@@ -15,7 +15,7 @@
                     <h5 class="card-title text-center pb-5">@Model.ChampionName</h5>
                     <p class="card-text pb-5">@Model.Description</p>
                     <ul class="list-group list-group-flush pt-4 pb-4 mb-2">
-                        <li class="list-group-item">Origin: @Model.Origin</li>
+                        <li class="list-group-item">Origin:@Model. @Model.Origin</li>
                         <li class="list-group-item">Power: @Model.Power</li>
                         <li class="list-group-item">Level: @Model.Level</li>
                     </ul>
@@ -33,3 +33,98 @@
         </div>
     </div>
 </div>
+
+
+<section>
+    <div class="container my-5 py-5 text-dark">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-6">
+                <div class="card text-white">
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="@Model.ImageUrl" alt="avatar" width="65"
+                                 height="65" />
+                            <div class="w-100">
+                                <h4 class="card-title text-white text-center mb-4 pb-4">Add a comment</h4>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="textAreaExample">What is your view?</label>
+                                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <button onclick="onButtonClick()" id="send" type="button" class="btn btn-danger">
+                                        Send <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<form method="post" id="antiForgeryForm"></form>
+
+<section id="commentCard">
+    @foreach (var item in Model.PostComments.OrderByDescending(x => x.CreatedOn))
+    {
+        <div class="container text-dark">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-11 col-lg-9 col-xl-7">
+                    <div id="container">
+
+                        <div class="d-flex flex-start mb-4">
+                            <div class="card w-100">
+                                <div class="card-body p-4">
+                                    <div class="text-white">
+                                        <h5>@Model.Player.GameName</h5>
+                                        <p class="small">@item.CreatedOn</p>
+                                        <p>
+                                            @item.Comment
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
+@section Scripts {
+    <script>
+
+        function onButtonClick() {
+            var comment = $('textarea#textAreaExample');
+            var championId = @Model.Id;
+            var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+
+            var data = { championId: championId, comment: comment[0].value };
+
+            $.ajax({
+                type: "POST",
+                url: '/api/PostComment',
+                data: JSON.stringify(data),
+                headers: {
+                    'X-CSRF-TOKEN': antiForgeryToken
+                },
+                success: function (data) {
+                    comment[0].value = "";
+                    console.log("Success");
+                    console.log($('#commentCard')[0]);
+
+                    $('#commentCard')[0].innerHtml += "Hello";
+
+                },
+                contentType: 'application/json',
+            });
+
+        }
+
+    </script>
+}

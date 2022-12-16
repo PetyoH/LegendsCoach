@@ -55,6 +55,10 @@
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddSingleton(configuration);
 
@@ -77,6 +81,7 @@
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IChampionService, ChampionService>();
             services.AddTransient<ICoachService, CoachService>();
+            services.AddTransient<IPostCommentService, PostCommentService>();
         }
 
         private static void Configure(WebApplication app)

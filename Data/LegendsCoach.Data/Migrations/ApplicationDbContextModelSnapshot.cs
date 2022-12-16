@@ -402,10 +402,13 @@ namespace LegendsCoach.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ChampionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -423,16 +426,13 @@ namespace LegendsCoach.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ChampionId");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("PlayerId");
-
-                    b.HasIndex("PostId");
 
                     b.ToTable("PostComments");
                 });
@@ -655,21 +655,21 @@ namespace LegendsCoach.Data.Migrations
 
             modelBuilder.Entity("LegendsCoach.Data.Models.PostComment", b =>
                 {
+                    b.HasOne("LegendsCoach.Data.Models.Champion", "Champion")
+                        .WithMany("PostComments")
+                        .HasForeignKey("ChampionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("LegendsCoach.Data.Models.Player", "Player")
                         .WithMany("PostComments")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LegendsCoach.Data.Models.Champion", "Post")
-                        .WithMany("PostComments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("Champion");
 
                     b.Navigation("Player");
-
-                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

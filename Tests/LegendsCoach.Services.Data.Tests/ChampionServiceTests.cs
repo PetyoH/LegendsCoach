@@ -143,20 +143,20 @@
             Assert.Equal(championDb.Id, champion.Id);
             Assert.Equal(championDb.ChampionName, champion.ChampionName);
         }
-
-        // [Fact]
-        // public async Task DeleteChampionAsyncWorksRight()
-        // {
+        //[Fact]
+        //public async Task DeleteChampionAsyncWorksRight()
+        //{
         //    await this.SeedAsync();
 
-        // const int championId = 1;
+        //    const int championId = 1;
+        //    const string playerId = "1";
 
-        // await this.championService.DeleteChampionAsync(championId);
+        //    await this.championService.DeleteChampionAsync(championId, playerId);
 
-        // var championsDb = await this.championRepository.All().ToListAsync();
+        //    var championsDb = await this.championRepository.All().ToListAsync();
 
-        // Assert.Single(championsDb);
-        // }
+        //    Assert.Single(championsDb);
+        //}
 
         [Fact]
         public async Task IsOwnerAsyncWorksRight()

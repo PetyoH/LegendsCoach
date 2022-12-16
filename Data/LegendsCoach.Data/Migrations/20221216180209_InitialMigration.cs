@@ -347,9 +347,9 @@ namespace LegendsCoach.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Comment = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     PlayerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false),
+                    ChampionId = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -359,8 +359,8 @@ namespace LegendsCoach.Data.Migrations
                 {
                     table.PrimaryKey("PK_PostComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PostComments_Champions_PostId",
-                        column: x => x.PostId,
+                        name: "FK_PostComments_Champions_ChampionId",
+                        column: x => x.ChampionId,
                         principalTable: "Champions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -493,6 +493,11 @@ namespace LegendsCoach.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PostComments_ChampionId",
+                table: "PostComments",
+                column: "ChampionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PostComments_IsDeleted",
                 table: "PostComments",
                 column: "IsDeleted");
@@ -501,11 +506,6 @@ namespace LegendsCoach.Data.Migrations
                 name: "IX_PostComments_PlayerId",
                 table: "PostComments",
                 column: "PlayerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PostComments_PostId",
-                table: "PostComments",
-                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ranks_IsDeleted",

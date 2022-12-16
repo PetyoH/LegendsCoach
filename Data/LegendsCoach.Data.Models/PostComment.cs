@@ -13,18 +13,17 @@
     public class PostComment : BaseDeletableModel<int>
     {
         [Required]
-        [StringLength(100)]
+        [StringLength(300)]
         public string Comment { get; set; }
 
-        // public string ImageUrl { get; set; }
         [Required]
         public string PlayerId { get; set; }
 
         public Player Player { get; set; }
 
         [Required]
-        public int PostId { get; set; }
+        public int ChampionId { get; set; }
 
-        public Champion Post { get; set; }
+        public Champion Champion { get; set; }
     }
 }
