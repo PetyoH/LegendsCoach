@@ -23,7 +23,7 @@
 
         Task<bool> IsOwnerAsync(int championId, string playerId);
 
-        Task DeleteChampionAsync(int championId, string playerId);
+        Task DeleteChampionAsync(int championId, string playerId, bool isAdmin);
 
         Task UpdateChampionAsync(int championId, string playerId, ChampionEditViewModel model, string imagePath);
     }

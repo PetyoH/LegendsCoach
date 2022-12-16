@@ -150,11 +150,11 @@
             return champion;
         }
 
-        public async Task DeleteChampionAsync(int championId, string playerId)
+        public async Task DeleteChampionAsync(int championId, string playerId, bool isAdmin)
         {
             var champion = await this.GetChampionAsync(championId);
 
-            if (await this.IsOwnerAsync(championId, playerId))
+            if (await this.IsOwnerAsync(championId, playerId) || isAdmin)
             {
                 this.championRepository.Delete(champion);
                 await this.championRepository.SaveChangesAsync();

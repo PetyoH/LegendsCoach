@@ -1,4 +1,5 @@
-﻿@model ChampionDetailsViewModel
+﻿@using LegendsCoach.Common;
+@model ChampionDetailsViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,10 +22,13 @@
                     </ul>
                 </div>
                 <div class="text-center mb-3">
-                    @if (Model.IsOwner)
+                    @if (Model.IsOwner || User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <div class="d-flex justify-content-around">
-                            <a class="nav-link btn btn-primary w-25 mt-4 ms-4" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                            @if (!User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <a class="nav-link btn btn-primary w-25 mt-4 ms-4" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                            }
                             <a class="nav-link btn btn-danger w-25 mt-4 ms-4" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                         </div>
                     }
@@ -67,19 +71,19 @@
 <form method="post" id="antiForgeryForm"></form>
 
 <section id="commentCard">
-    @foreach (var item in Model.PostComments.OrderByDescending(x => x.CreatedOn))
-    {
-        <div class="container text-dark">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-11 col-lg-9 col-xl-7">
-                    <div id="container">
+    <div class="container text-dark">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-11 col-lg-9 col-xl-7">
+                <div id="container">
+                    @foreach (var item in Model.PostComments.OrderByDescending(x => x.CreatedOn))
+                    {
 
                         <div class="d-flex flex-start mb-4">
                             <div class="card w-100">
                                 <div class="card-body p-4">
-                                    <div class="text-white">
-                                        <h5>@Model.Player.GameName</h5>
-                                        <p class="small">@item.CreatedOn</p>
+                                    <div class="text-white ">
+                                        <h5 class="text-center">@Model.Player.GameName</h5>
+                                        <p class="small text-center">@item.CreatedOn</p>
                                         <p>
                                             @item.Comment
                                         </p>
@@ -88,11 +92,11 @@
                             </div>
                         </div>
 
-                    </div>
+                    }
                 </div>
             </div>
         </div>
-    }
+    </div>
 </section>
 
 
@@ -116,9 +120,9 @@
                 success: function (data) {
                     comment[0].value = "";
                     console.log("Success");
-                    console.log($('#commentCard')[0]);
+                    console.log($('div#container')[0]);
 
-                    $('#commentCard')[0].innerHtml += "Hello";
+                    $('div#commentCard').innerHTML = "<h1>Helooooo</h1>";
 
                 },
                 contentType: 'application/json',

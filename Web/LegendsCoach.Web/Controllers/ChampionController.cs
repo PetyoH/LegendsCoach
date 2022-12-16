@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-
+    using LegendsCoach.Common;
     using LegendsCoach.Data.Models;
     using LegendsCoach.Services.Data.Contracts;
     using LegendsCoach.Web.Infrastructure.Extensions;
@@ -77,9 +77,15 @@
         {
             try
             {
-                var userId = this.User.Id();
+                var isAdmin = this.User.IsInRole(GlobalConstants.AdministratorRoleName);
 
-                var playerId = await this.playerService.GetPlayerIdAsync(userId);
+                var userId = this.User.Id();
+                var playerId = "0";
+
+                if (!isAdmin)
+                {
+                    playerId = await this.playerService.GetPlayerIdAsync(userId);
+                }
 
                 var model = await this.championService.GetChampionDetailsAsync<ChampionDetailsViewModel>(id);
 
@@ -96,8 +102,8 @@
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-                var model = await this.championService.GetChampionDetailsAsync<ChampionEditViewModel>(id);
-                return this.View(model);
+            var model = await this.championService.GetChampionDetailsAsync<ChampionEditViewModel>(id);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -113,18 +119,25 @@
 
             await this.championService.UpdateChampionAsync(id, playerId, model, $"{this.environment.WebRootPath}/images");
 
-            return this.RedirectToAction("Details", "Champion", id);
+            return this.RedirectToAction("Details", "Champion", new { id });
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+
             var userId = this.User.Id();
-            var playerId = await this.playerService.GetPlayerIdAsync(userId);
+            var playerId = "0";
+            var isAdmin = this.User.IsInRole(GlobalConstants.AdministratorRoleName);
+
+            if (!isAdmin)
+            {
+                 playerId = await this.playerService.GetPlayerIdAsync(userId);
+            }
 
             try
             {
-                await this.championService.DeleteChampionAsync(id, playerId);
+                await this.championService.DeleteChampionAsync(id, playerId, isAdmin);
 
                 return this.RedirectToAction("All", "Champion");
             }
