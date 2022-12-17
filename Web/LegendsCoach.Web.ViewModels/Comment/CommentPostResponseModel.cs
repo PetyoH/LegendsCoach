@@ -9,7 +9,5 @@
     public class CommentPostResponseModel
     {
         public string Comment { get; set; }
-
-        public string GameName { get; set; }
     }
 }

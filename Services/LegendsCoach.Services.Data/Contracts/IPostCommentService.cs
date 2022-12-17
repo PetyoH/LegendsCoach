@@ -9,6 +9,5 @@
     public interface IPostCommentService
     {
         Task CommentAsync(int championId, string playerId, string comment);
-
     }
 }

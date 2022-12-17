@@ -31,12 +31,14 @@
         [HttpPost]
         public async Task<ActionResult<CommentPostResponseModel>> Post(CommentPostViewModel model)
         {
-            var champion = await this.championService.GetChampionAsync(model.ChampionId);
+            //var champion = await this.championService.GetChampionAsync(model.ChampionId);
 
-            var player = await this.playerService.GetPlayerAsync(this.User.Id());
+            var playerId = await this.playerService.GetPlayerIdAsync(this.User.Id());
 
-            await this.commentService.CommentAsync(model.ChampionId, champion.PlayerId, model.Comment);
-            return new CommentPostResponseModel { Comment = model.Comment, GameName = player.GameName };
+            await this.commentService.CommentAsync(model.ChampionId, playerId, model.Comment);
+            //return new CommentPostResponseModel { Comment = model.Comment };
+            
+            return this.RedirectToAction("Details", "Champion", new { model.ChampionId });
         }
     }
 }

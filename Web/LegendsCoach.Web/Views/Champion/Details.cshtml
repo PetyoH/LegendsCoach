@@ -82,7 +82,7 @@
                             <div class="card w-100">
                                 <div class="card-body p-4">
                                     <div class="text-white ">
-                                        <h5 class="text-center">@Model.Player.GameName</h5>
+                                        <h5 class="text-center">@item.Player.</h5>
                                         <p class="small text-center">@item.CreatedOn</p>
                                         <p>
                                             @item.Comment
@@ -117,12 +117,12 @@
                 headers: {
                     'X-CSRF-TOKEN': antiForgeryToken
                 },
-                success: function (data) {
+                success: function () {
                     comment[0].value = "";
                     console.log("Success");
-                    console.log($('div#container')[0]);
+                    //console.log($('div#container')[0]);
 
-                    $('div#commentCard').innerHTML = "<h1>Helooooo</h1>";
+                    //$('div#commentCard').innerHTML = "<h1>Helooooo</h1>";
 
                 },
                 contentType: 'application/json',
