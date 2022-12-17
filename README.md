@@ -5,7 +5,7 @@
 - Can see all players and champions, but cannot see their info
 
 
-**Player/Coach
+**Player/Coach:**
 - Player can see players, coaches and champions and their info
 - Player can delete and edit their champions and profile
 
